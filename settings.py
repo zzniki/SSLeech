@@ -1,0 +1,3 @@
+TIMEOUT = 5
+THREADS = 5
+VERBOSE = False
