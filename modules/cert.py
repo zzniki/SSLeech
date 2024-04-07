@@ -43,8 +43,8 @@ def getCert(host: str, port: int = 443) -> OpenSSL.crypto.X509:
     start = time.time()
 
     while (time.time() - start <= settings.TIMEOUT + .1):
-        if (not p.is_alive()): break
         time.sleep(.1)
+        if (not p.is_alive()): break
     else:
         killThread(p)
 

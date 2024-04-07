@@ -63,7 +63,10 @@ class CMD(Command):
             done = 0
             lastDone = done
 
-            while (done < len(addresses)):
+            forceExit = False
+            lastUpdate = time.time()
+
+            while (done < len(addresses) or forceExit):
                 diff = done - lastDone
                 if (diff > 0):
                     bar(diff)
@@ -72,6 +75,11 @@ class CMD(Command):
                 time.sleep(.1)
 
                 done = len(list(res.keys()))
+
+                if (lastDone != done):
+                    lastUpdate = time.time()
+                elif (time.time() - lastUpdate > settings.TIMEOUT * 2):
+                    break
 
         filtered = {k: v for k, v in res.items() if v is not None}
         res.clear()
